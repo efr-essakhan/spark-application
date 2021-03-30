@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
+import ssh
 
 sg.theme('BluePurple')
 
-layout = [[sg.Text('Your typed chars appear here:'), sg.Text(size=(15,1), key='-OUTPUT-')],
-          [sg.Input(key='-IN-')],
+layout = [[sg.Text('Please press one of the following two buttons to query the data')],
           [sg.Button('Show Most Popular Movies')],
           [sg.Button('Show ten worst rated movies')],
           [sg.Button('Exit')]]
@@ -15,8 +15,11 @@ while True:  # Event Loop
     print(event, values)
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
-    if event == 'Show':
-        # Update the "output" text element to be the value of "input" element
-        window['-OUTPUT-'].update(values['-IN-'])
+    if event == 'Show Most Popular Movies':
+        ssh.launchFileThroughSSHpopular()
+        
+    if event == 'Show ten worst rated movies':
+        ssh.launchFileThroughSSHrating()
+
 
 window.close()
