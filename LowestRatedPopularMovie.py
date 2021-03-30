@@ -47,7 +47,7 @@ if __name__ == "__main__":
     #print("Movie name | Tot. Num. of people that left rating | Avg. rating")
     for movie in topTen:
         #print (movieNames[movie[0]], movie[1], movie[2])
-        print (movieNames[movie[0]], movie[1], movie[2])
+        print (movieNames[movie[0]])
 
     # Stop the session
     spark.stop()
