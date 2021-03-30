@@ -25,6 +25,6 @@ while True:  # Event Loop
     if event == 'Show ten worst rated movies':
         #ssh.launchFileThroughSSHrating()
         #sg.popup('Results:', "Movie name: Total number of ratings\n", ssh.launchFileThroughSSHrating(), title = 'top 10 Most Popular Movies', non_blocking = True)
-        sg.popup_scrolled("Movie name | Tot. Num. of people that left rating | Avg. rating\n",ssh.launchFileThroughSSHrating(), title = 'top 10 Most Popular Movies', non_blocking = True)
+        sg.popup_scrolled("Movie name | Tot. Num. of people that left rating | Avg. rating\n",ssh.launchFileThroughSSHlowestPopularRating, title = 'top 10 Most Popular Movies', non_blocking = True)
 
 window.close()
