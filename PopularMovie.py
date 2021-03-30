@@ -31,21 +31,16 @@ if __name__ == "__main__":
     # SQL-style technique to sort all movies by popularity in one line!
     topMovieIDs = movieDataset.groupBy("movieID").count().orderBy("count", ascending=False).cache()
 
-    # Show the results at this point:
+    # If you want to show the results at this point of all movies ordered according to popularity:
 
-    # |movieID|count|
-    # +-------+-----+
-    # |     50|  584|
-    # |    258|  509|
-    # |    100|  508|
-
-    topMovieIDs.show()
+    #topMovieIDs.show()
 
     # Grab the top 10
     top10 = topMovieIDs.take(10)
 
     # Print the results
-    print("\n")
+    #print("\n")
+    print("Movie name | Total number of ratings")
     for result in top10:
         # Each row has movieID, count as above.
         print("%s: %d" % (movieNames[result[0]], result[1]))
