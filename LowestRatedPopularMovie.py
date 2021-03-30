@@ -50,7 +50,7 @@ if __name__ == "__main__":
         count = count + 1
         #print (movieNames[movie[0]], movie[1], movie[2])
         #print (movieNames[movie[0]])
-        print("{}. {} | {} | {}".format(movieNames[movie[0]], movie[1], movie[2])
+        print("{}. {} | {} | {}".format(movieNames[movie[0]], movie[1], movie[2]))
 
     # Stop the session
     spark.stop()
