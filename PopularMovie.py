@@ -45,7 +45,8 @@ if __name__ == "__main__":
         # Each row has movieID, count as above.
         #print("{}. {} | {}".format(count++, movieNames[result[0]], result[1]))
         text = "%s | %d" % (movieNames[result[0]], result[1])
-        print("{}. {}".format(count++, text))
+        count = count + 1
+        print("{}. {}".format(count, text))
 
     # Stop the session
     spark.stop()
