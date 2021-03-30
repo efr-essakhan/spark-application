@@ -1,64 +1,22 @@
-# file = open('testfile.py','w')
+import PySimpleGUI as sg
 
-#Write to file
-with open('testfile.py', 'w') as f:
-    f.write("""from pyspark.sql import SparkSession
-from pyspark.sql import Row
-from pyspark.sql import functions
+sg.theme('BluePurple')
 
-def loadMovieNames():
-    movieNames = {}
-    with open("ml-100k/u.item") as f:
-        for line in f:
-            fields = line.split('|')
-            movieNames[int(fields[0])] = fields[1]
-    return movieNames
+layout = [[sg.Text('Your typed chars appear here:'), sg.Text(size=(15,1), key='-OUTPUT-')],
+          [sg.Input(key='-IN-')],
+          [sg.Button('Show Most Popular Movies')],
+          [sg.Button('Show ten worst rated movies')],
+          [sg.Button('Exit')]]
 
-def parseInput(line):
-    fields = line.split()
-    return Row(movieID = int(fields[1]), rating = float(fields[2]))
+window = sg.Window('Pattern 2B', layout)
 
-if __name__ == "__main__":
-    # Create a SparkSession (the config bit is only for Windows!)
-    spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
+while True:  # Event Loop
+    event, values = window.read()
+    print(event, values)
+    if event == sg.WIN_CLOSED or event == 'Exit':
+        break
+    if event == 'Show':
+        # Update the "output" text element to be the value of "input" element
+        window['-OUTPUT-'].update(values['-IN-'])
 
-    # Load up our movie ID -> name dictionary
-    movieNames = loadMovieNames()
-
-    # Get the raw data
-    lines = spark.sparkContext.textFile("hdfs:///user/maria_dev/ml-100k/u.data")
-    # Convert it to a RDD of Row objects with (movieID, rating)
-    movies = lines.map(parseInput)
-    # Convert that to a DataFrame
-    movieDataset = spark.createDataFrame(movies)
-
-    # Compute average rating for each movieID
-    averageRatings = movieDataset.groupBy("movieID").avg("rating")
-
-    # Compute count of ratings for each movieID
-    counts = movieDataset.groupBy("movieID").count()
-
-    # Join the two together (We now have movieID, avg(rating), and count columns)
-    averagesAndCounts = counts.join(averageRatings, "movieID")""")
-
-minRating = 100
-#Append to file
-with open('testfile.py', 'a') as f:
-    f.write(f"""
-    # Filter movies rated 10 or fewer times
-    popularAveragesAndCounts = averagesAndCounts.filter("count > {minRating}")""")
-
-
-    f.write(f"""  # Pull the top 10 results
-    topTen = popularAveragesAndCounts.orderBy("avg(rating)").take(10)
-
-    # Print them out, converting movie ID's to names as we go.
-    for movie in topTen:
-        print (movieNames[movie[0]], movie[1], movie[2])
-
-    # Stop the session
-    spark.stop()""")
-
-
-f=open("testfile.py",'r')
-print(f.read())
+window.close()
