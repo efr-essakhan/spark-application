@@ -15,10 +15,10 @@ def parseInput(line):
     return Row(movieID = int(fields[1]), rating = float(fields[2]))
 
 if __name__ == "__main__":
-    # Create a SparkSession
+    # Create a SparkSession (the config bit is only for Windows!)
     spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
 
-    # Load up movie ID -> name dictionary
+    # Load up our movie ID -> name dictionary
     movieNames = loadMovieNames()
 
     # Get the raw data
@@ -28,19 +28,21 @@ if __name__ == "__main__":
     # Convert that to a DataFrame
     movieDataset = spark.createDataFrame(movies)
 
-    #Show the db of all movies ordered according to popularity:
-    movieDataset.show()
-    # If you want to show the results at this point of all movies ordered according to popularity:
-    # #topMovieIDs.show()
+    # Compute average rating for each movieID
+    averageRatings = movieDataset.groupBy("movieID").avg("rating")
 
+    # Compute count of ratings for each movieID
+    counts = movieDataset.groupBy("movieID").count()
 
-    # Print the results
-    #print("Movie name | Total number of ratings")
-    # count = 0
-    # for result in movieDataset:
-    #     text = "%s | %d" % (movieNames[result[0]], result[1])
-    #     count = count + 1
-    #     print("{}. {}".format(count, text))
+    # Join the two together (We now have movieID, avg(rating), and count columns)
+    averagesAndCounts = counts.join(averageRatings, "movieID")
+
+    # Pull the top 10 results
+    topTen = averagesAndCounts.orderBy("avg(rating)").take(10)
+
+    # Print them out, converting movie ID's to names as we go.
+    for movie in topTen:
+        print (movieNames[movie[0]], movie[1], movie[2])
 
     # Stop the session
     spark.stop()
