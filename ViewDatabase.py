@@ -28,25 +28,19 @@ if __name__ == "__main__":
     # Convert that to a DataFrame
     movieDataset = spark.createDataFrame(movies)
 
-    # SQL-style technique to sort all movies by popularity in one line!
-    topMovieIDs = movieDataset.groupBy("movieID").count().orderBy("count", ascending=False).cache()
-
+    #Show the db of all movies ordered according to popularity:
+    movieDataset.show()
     # If you want to show the results at this point of all movies ordered according to popularity:
+    # #topMovieIDs.show()
 
-    #topMovieIDs.show()
-
-    # Grab the top 10
-    top10 = topMovieIDs.take(10)
 
     # Print the results
     #print("Movie name | Total number of ratings")
-    count = 0
-    for result in top10:
-        # Each row has movieID, count as above.
-        #print("{}. {} | {}".format(count++, movieNames[result[0]], result[1]))
-        text = "%s | %d" % (movieNames[result[0]], result[1])
-        count = count + 1
-        print("{}. {}".format(count, text))
+    # count = 0
+    # for result in movieDataset:
+    #     text = "%s | %d" % (movieNames[result[0]], result[1])
+    #     count = count + 1
+    #     print("{}. {}".format(count, text))
 
     # Stop the session
     spark.stop()

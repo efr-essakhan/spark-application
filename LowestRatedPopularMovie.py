@@ -15,10 +15,10 @@ def parseInput(line):
     return Row(movieID = int(fields[1]), rating = float(fields[2]))
 
 if __name__ == "__main__":
-    # Create a SparkSession (the config bit is only for Windows!)
+    # Create a SparkSession
     spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
 
-    # Load up our movie ID -> name dictionary
+    # Load up movie ID -> name dictionary
     movieNames = loadMovieNames()
 
     # Get the raw data
