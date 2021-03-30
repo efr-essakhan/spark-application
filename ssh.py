@@ -13,6 +13,6 @@ def launchFileThroughSSHpopular():
                           missing_host_key=spur.ssh.MissingHostKey.accept)
 
     with shell:
-        result = shell.run(["spark-submit", "popu.py"])
+        result = shell.run(["spark-submit", "pop2.py"])
     return result.output.decode('utf-8')
 
