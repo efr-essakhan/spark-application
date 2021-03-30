@@ -43,7 +43,9 @@ if __name__ == "__main__":
     count = 0
     for result in top10:
         # Each row has movieID, count as above.
-        print(f"{count++}. %s | %d" % (movieNames[result[0]], result[1]))
+        #print("{}. {} | {}".format(count++, movieNames[result[0]], result[1]))
+        text = "%s | %d" % (movieNames[result[0]], result[1])
+        print("{}. {}".format(count++, text))
 
     # Stop the session
     spark.stop()
