@@ -44,7 +44,7 @@ if __name__ == "__main__":
     topTen = popularAveragesAndCounts.orderBy("avg(rating)").take(10)
 
     # Print them out, converting movie ID's to names as we go.
-    print("Movie name | Tot. Num. of people that left rating | Avg. rating")
+    #print("Movie name | Tot. Num. of people that left rating | Avg. rating")
     for movie in topTen:
         print (movieNames[movie[0]], movie[1], movie[2])
 

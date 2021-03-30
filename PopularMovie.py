@@ -39,11 +39,11 @@ if __name__ == "__main__":
     top10 = topMovieIDs.take(10)
 
     # Print the results
-    #print("\n")
-    print("Movie name | Total number of ratings")
+    #print("Movie name | Total number of ratings")
+    count = 0
     for result in top10:
         # Each row has movieID, count as above.
-        print("%s: %d" % (movieNames[result[0]], result[1]))
+        print(f"{count++}. %s | %d" % (movieNames[result[0]], result[1]))
 
     # Stop the session
     spark.stop()
