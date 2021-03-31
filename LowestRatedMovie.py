@@ -15,10 +15,10 @@ def parseInput(line):
     return Row(movieID = int(fields[1]), rating = float(fields[2]))
 
 if __name__ == "__main__":
-    # Create a SparkSession (the config bit is only for Windows!)
+    # Create a SparkSession
     spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
 
-    # Load up our movie ID -> name dictionary
+    # Load up movie ID -> name dictionary
     movieNames = loadMovieNames()
 
     # Get the raw data
@@ -41,8 +41,11 @@ if __name__ == "__main__":
     topTen = averagesAndCounts.orderBy("avg(rating)").take(10)
 
     # Print them out, converting movie ID's to names as we go.
+    # print("Movie name | Tot. Num. of people that left rating | Avg. rating")
+    count = 0
     for movie in topTen:
-        print (movieNames[movie[0]], movie[1], movie[2])
+        count = count + 1
+        print("{}. {} | {} | {}".format(count, movieNames[movie[0]], movie[1], movie[2]))
 
     # Stop the session
     spark.stop()
