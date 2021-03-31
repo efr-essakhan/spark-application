@@ -17,10 +17,16 @@ def launchFileThroughSSHlowestRating():
         shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/ml-100k/u.item"])
         shell.run(["mkdir", "ml-100k"])
         shell.run(["mv", "u.item" ,"ml-100k"])
-       
         
+        #Storing Spark Scripts onto local
+        shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/LowestRatedMovie.py"])
+        shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/LowestRatedPopularMovie.py"])
+        shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/PopularMovie.py"])
         
-        
-    #print(result.output.decode('utf-8'))
+    shell = spur.SshShell(hostname="127.0.0.1", port=2222, username="root", password="hadoop",
+                          missing_host_key=spur.ssh.MissingHostKey.accept)
+    with shell:
+        #Installing python
+        shell.run(["yum", "install", "python-pip"])
 
 launchFileThroughSSHlowestRating()
