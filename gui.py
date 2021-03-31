@@ -5,7 +5,7 @@ sg.theme('BluePurple')
 
 layout = [[sg.Text('Please press one of the following two buttons to query the data')],
           [sg.Button('Show top ten worst rated movies')],
-          [sg.Button('Show top ten worst rated movies with ≥ 10 total ratings')],
+          [sg.Button('Show top ten worst rated movies with >= 10 total ratings')],
           [sg.Button('Show top 10 Most Popular Movies')],
           [sg.Button('Exit')]]
 
