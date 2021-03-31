@@ -5,7 +5,7 @@ def launchFileThroughSSHlowestRating():
                           missing_host_key=spur.ssh.MissingHostKey.accept)
 
     with shell:
-        result = shell.run(["spark-submit", "LowestRatedMovie.py"]) # LowestRatedPopularMovieDataFrame.py
+        result = shell.run(["spark-submit", "LowestRatedMovie.py"])
     return result.output.decode('utf-8')
 
 def launchFileThroughSSHlowestPopularRating():
@@ -13,9 +13,8 @@ def launchFileThroughSSHlowestPopularRating():
                           missing_host_key=spur.ssh.MissingHostKey.accept)
 
     with shell:
-        result = shell.run(["spark-submit", "LowestRatedPopularMovie.py"]) # LowestRatedPopularMovieDataFrame.py
+        result = shell.run(["spark-submit", "LowestRatedPopularMovie.py"])
     return result.output.decode('utf-8')
-
 
 
 def launchFileThroughSSHpopular():
