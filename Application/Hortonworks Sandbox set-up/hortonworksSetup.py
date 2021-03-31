@@ -7,5 +7,20 @@ def launchFileThroughSSHlowestRating():
                           missing_host_key=spur.ssh.MissingHostKey.accept)
 
     with shell:
-        result = shell.run(["spark-submit", "LowestRatedMovie.py"])
-    return result.output.decode('utf-8')
+        #Storing u.data into HDFS cluster
+        shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/ml-100k/u.data"])
+        shell.run(["hadoop", "fs", "-mkdir", "ml-100k"])
+        shell.run(["hadoop", "fs", "-copyFromLocal", "u.data", "ml-100k/u.data"])
+        shell.run(["rm", "u.data"])
+        
+        #Storing u.item onto local
+        shell.run(["curl", "-O", "https://raw.githubusercontent.com/essakh/spark-application/master/Spark%20files/ml-100k/u.item"])
+        shell.run(["mkdir", "ml-100k"])
+        shell.run(["mv", "u.item" ,"ml-100k"])
+       
+        
+        
+        
+    #print(result.output.decode('utf-8'))
+
+launchFileThroughSSHlowestRating()
