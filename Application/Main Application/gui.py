@@ -7,14 +7,14 @@ layout = [[sg.Text('Please press one of the following buttons to query the data'
           [sg.Button('Show top ten worst rated movies')],
           [sg.Button('Show top ten worst rated movies with >= 10 total ratings')],
           [sg.Button('Show top 10 Most Popular Movies')],
-          [sg.Button('Exit')]]
+          [sg.Text('Once you press a button please wait patiently until a pop-up shows displaying the results (takes less than 3 minutes ussually)')]]
 
 window = sg.Window('Essa Khan CS3800 application', layout)
 
 while True:  # Event Loop
     event, values = window.read()
-    print(event, values)
-    if event == sg.WIN_CLOSED or event == 'Exit':
+    #print(event, values)
+    if event == sg.WIN_CLOSED:
         break
 
     if event == 'Show top ten worst rated movies':
