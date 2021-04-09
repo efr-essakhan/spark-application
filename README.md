@@ -1,1 +1,1 @@
-spark application
+See ReadMe_Tutoiral.pdf
